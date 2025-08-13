@@ -3,40 +3,54 @@
 <head>
 
 <meta charset="utf-8" />
-<title>Sidewalk Widths Boston</title>
+<title>Utrecht Netherlands Walking Speed</title>
 <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
 
-<meta property="og:title" content="Sidewalk Width Boston" />
-<meta property="og:image" content="https://sidewalkwidths.nyc/assets/sidewalkwidths_nyc.jpg" />
-<meta property="og:description" content="Sidewalk Widths Boston is an interactive map that allows you to explore Boston's sidewalks relative to how good they are for social distancing." />
+<meta property="og:title" content="Utrecht Netherlands Walking Speed" />
+<meta property="og:image" content="./assets/utrecht_hex.png" />
+<meta property="og:description" content="Discover the Dynamics of Utrecht, Netherlands. This is an interactive map that allows you to observe walking speeds in the heart of Utrecht." />
 
 	
-<link rel='icon' href='favicon.ico?' type='image/x-icon'/ >
-<script src="https://api.mapbox.com/mapbox-gl-js/v1.9.1/mapbox-gl.js"></script>
-<link href="https://api.mapbox.com/mapbox-gl-js/v1.9.1/mapbox-gl.css" rel="stylesheet" />
+<link rel='icon' href='favicon.png?' type='image/x-icon'/ >
+<link href="https://api.mapbox.com/mapbox-gl-js/v3.14.0/mapbox-gl.css" rel="stylesheet">
+<script src="https://api.mapbox.com/mapbox-gl-js/v3.14.0/mapbox-gl.js"></script>
+
+
+<!-- <script src="https://api.mapbox.com/mapbox-gl-js/v1.9.1/mapbox-gl.js"></script>
+<link href="https://api.mapbox.com/mapbox-gl-js/v1.9.1/mapbox-gl.css" rel="stylesheet" /> -->
 <link rel="stylesheet" type="text/css" href="css/styles.css"></link>
 
 </head>
 <body>
 
 	<div id="menu">
-		<button id="info-button" class="button circle-button" onclick="toggleInfo()">
+		<button id="info-button" class="button circle-button" onclick="toggleInfo()" title="About this map">
 			<img src="./assets/logo.png"></img>
 		</button>
 
-		<button id="legend-button" class="button circle-button" onclick="toggleLegend()">
-			<img src="./assets/legend.png"></img>
+		<button id="legend-button" class="button circle-button" onclick="toggleLegend()" title="Show Legend">
+			<img src="./assets/legend_icon.png"></img>
 		</button>
+
+		<!-- <button id="toggleBuildings" class="button circle-button"  title="Show/Hide 3d Buildings">
+			<img src="./assets/building.png"></img>
+		</button> -->
 	</div>
 
   <div id="info" class="window" style="display: block;">
     <div class="window-content">
-      <h3>Welcome to</h3>
-      <h1>Sidewalk Widths Boston</h1>
-      <p>This map is intended to give an impression of how sidewalk widths impact the ability of pedestrians to practice social distancing. Widths were determined from <a href="https://data.boston.gov/dataset/sidewalk-inventory">City of Boston</a> and <a href="https://www.cambridgema.gov/GIS/gisdatadictionary/Basemap/BASEMAP_Sidewalks">City of Cambridge's</a> sidewalk datasets which were not verfied for accuracy or completeness.</p>
-			<p>This was a map adapted from New York City's Sidewalk Width map available here: <a href = "https://www.sidewalkwidths.nyc/">www.sidewalkwidths.nyc</a>. To learn more about how this dataset was produced, visit the following <a href="https://www.github.com/meliharvey/sidewalkwidths-nyc">GitHub page</a>.</p>
-      <p><small>DISCLAIMER<br>
-      Do not use this map to make decisions that impact your health or safety. Other important factors like sidewalk obstructions and pedestrian activity are not accounted for in this dataset.</small></p>
+	  <h3>Discover the Dynamics of Utrecht, Netherlands</h3>
+	  <h1>Insights into Walking Speeds</h1>
+	  <p>Explore Utrecht’s lively rhythm with this map, displaying average walking speeds collected from participant 
+		smartphones over the course of a year. More than <strong>2,238 individuals and 25,104 journeys</strong> 
+		are reflected in this unique dataset.</p>
+
+	  <p>The data is meticulously screened to ensure accuracy, focusing solely on walking speeds. It's part of the 
+		esteemed <a href="https://www.goudappel.nl/nl/expertises/data-en-it-oplossingen/nederlands-verplaatsingspanel" target="_blank" >
+		Nederland’s Verplaatsing Panel (NVP)</a>, continuously tracking about 10,000 Dutch residents globally since 
+		2019.</p>
+
+	 <p>Want to learn more about this data? Contact: <a href='mailto:ftallis@dat.nl'>Federico Tallis</a></p>
     </div>
     <div class="close-window" onclick="toggleInfo()">
       <button class="button">Explore the Map</button>

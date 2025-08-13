@@ -1,43 +1,73 @@
-var MAPBOX_TOKEN = 'pk.eyJ1IjoiZmVkZXJpY290YWxsaXN2aGIiLCJhIjoiY2s5anp0d3h5MXBwaTNtbndnZjJiMHQyeiJ9.EkcnAumdNONuvCxlASioDw'
-var MAPBOX_STYLE = 'mapbox://styles/federicotallisvhb/ck9zyok013tjk1imte3akocfp'
-var SIDEWALKS_TILESET = 'mapbox://federicotallisvhb.a3sixxsl'
-var SIDEWALKS_LAYER = 'output-2k8uxk'
-var UNITS = 'ft' // change to 'm' for meters
+var MAPBOX_TOKEN = 'pk.eyJ1IjoiZnRhbGxpcyIsImEiOiJjbWUzYWkwZDAwNHp5MmpzOXgzazdkdzUyIn0.RtMvhtAAxQDGZqrg-2Cc_g'
+var MAPBOX_STYLE = 'mapbox://styles/ftallis/cme4gev6m00ps01sc66e3327k'
+var HEX_TILESET = 'mapbox://ftallis.624ik2sk' 
+var HEX_LAYER = 'Utrecht_Binnenstad_Hex14_v2-0krx04' 
+var UNITS = 'km/hr' // change to 'm' for meters
 var PRECISION = 0.1 // the number of decimal places
 var GROUPS = [
   {
-    "value": 0,
-    "rating": "impossible",
-    "color": "#FF0049"
+    "value": 0.5040,
+    "rating": "0.5 - 1",
+    "color": "#30123b"
   },
   {
-    "value": 6,
-    "rating": "very difficult",
-    "color": "#FF461E"
+    "value": 1.0040,
+    "rating": "1 - 1.5",
+    "color": "#434fbc"
   },
   {
-    "value": 9,
-    "rating": "difficult",
-    "color": "#FF9300"
+    "value": 1.5040,
+    "rating": "1.5 - 2",
+    "color": "#4686fb"
   },
   {
-    "value": 12,
-    "rating": "somewhat difficult",
-    "color": "#DAD130"
+    "value": 2.0040,
+    "rating": "2 - 2.5",
+    "color": "#28bceb"
   },
   {
-    "value": 15,
-    "rating": "somewhat easy",
-    "color": "#00ff5a"
+    "value": 2.5040,
+    "rating": "2.5 - 3",
+    "color": "#1be5b5"
   },
   {
-    "value": 18,
-    "rating": "easy",
-    "color": "#00FFC4"
+    "value": 3.0040,
+    "rating": "3 - 3.5",
+    "color": "#58fb74"
   },
   {
-    "value": 21,
-    "rating": "very easy",
-    "color": "#00D2FF"
+    "value": 3.5040,
+    "rating": "3.5 - 4",
+    "color": "#a4fc3c"
   },
+  {
+    "value": 4.0040,
+    "rating": "4 - 4.5",
+    "color": "#dae336"
+  },
+  {
+    "value": 4.5040,
+    "rating": "4.5 - 5",
+    "color": "#fbb938"
+  },
+  {
+    "value": 5.0040,
+    "rating": "5 - 5.5",
+    "color": "#fb7e21"
+  },
+  {
+    "value": 5.5040,
+    "rating": "5.5 - 6",
+    "color": "#e3440a"
+  },
+  {
+    "value": 6.0040,
+    "rating": "6 - 6.5",
+    "color": "#b81d02"
+  },
+  {
+    "value": 6.5040,
+    "rating": "6.5 - 7",
+    "color": "#7a0403"
+  }
 ]

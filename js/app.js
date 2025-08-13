@@ -18,14 +18,24 @@ function toggleLegend() {
   }
 }
 
+// document.getElementById('toggleBuildings').addEventListener('click', function () {
+//   var buildingVisibility = map.getLayoutProperty('buildings', 'visibility');
+
+//   if (buildingVisibility === 'visible') {
+//     map.setLayoutProperty('buildings', 'visibility', 'none');
+//   } else {
+//     map.setLayoutProperty('buildings', 'visibility', 'visible');
+//   }
+// });
+
 mapboxgl.accessToken = MAPBOX_TOKEN;
 var map = new mapboxgl.Map({
   container: 'map',
   style: MAPBOX_STYLE,
-  center: [-71.04517,42.35761],
-  zoom: 14,
-  maxZoom: 19,
-  minZoom: 14,
+  center: [5.104480,52.092876], 
+  zoom: 16,
+  maxZoom: 21,
+  minZoom: 16,
  // maxBounds: [
    // [-70.99, 42.40], // Southwest coordinates
    // [-71.11, 42.20] // Northeast coordinates
@@ -35,10 +45,28 @@ var map = new mapboxgl.Map({
 
 map.addControl(new mapboxgl.NavigationControl());
 
+
 map.on('load', function() {
+
+  //   console.log(map.getStyle().layers.map(layer => layer.id));
+
+  // const buildingsLayerId = '3d-building'; // ID of the layer to toggle
+
+  // // Toggle button event listener
+  // document.getElementById('toggleBuildings').addEventListener('click', function() {
+  //   const visibility = map.getLayoutProperty(buildingsLayerId, 'visibility');
+
+  //   if (visibility === 'visible') {
+  //     map.setLayoutProperty(buildingsLayerId, 'visibility', 'none');
+  //   } else {
+  //     map.setLayoutProperty(buildingsLayerId, 'visibility', 'visible');
+  //   }
+  // });
+
+
+
   // Insert the layer beneath any symbol layer.
   var layers = map.getStyle().layers;
-
   var labelLayerId;
   for (var i = 0; i < layers.length; i++) {
     if (layers[i].type === 'symbol') {
@@ -47,80 +75,118 @@ map.on('load', function() {
     }
   }
 
-  map.addSource('sidewalks', {
+ map.addSource('hexs', {
      type: 'vector',
-     url: SIDEWALKS_TILESET
+     url: HEX_TILESET
   });
-
-  var lineColor = ["step", ["get", 'width']]
-
-  for (var i=0; i<GROUPS.length; i++) {
-    if (i==0) lineColor.push(GROUPS[0].color)
-    else lineColor.push(GROUPS[i].value, GROUPS[i].color)
+  var fillColor = ["step", ["get", 'speed']];
+  for (var i = 0; i < GROUPS.length; i++) {
+    if (i == 0) fillColor.push(GROUPS[0].color)
+    else fillColor.push(GROUPS[i].value, GROUPS[i].color)
   }
 
   map.addLayer({
-    'id': 'sidewalks',
-    'type': 'line',
-    'source': 'sidewalks',
-    'source-layer': SIDEWALKS_LAYER,
-    'layout': {
-      'line-cap': 'round',
-    },
+    'id': 'hexs',
+    'type': 'fill', // Change here to 'fill'
+    'source': 'hexs',
+    'source-layer': HEX_LAYER,
     'paint': {
-      'line-width': [
-        'interpolate',
-        ['linear'],
-        ['zoom'],
-        14, 2,
-        19, 10,
-      ],
-      'line-color': lineColor,
-      'line-opacity': 1,
+      'fill-color': fillColor, // Change here to 'fill-color'
+      'fill-opacity': 0.75 // Set desired opacity
     },
+    'filter': ['has', 'speed'] 
+
   },
   labelLayerId
   );
+  // The rest of your code remains unchanged
+  // map.addLayer(
+  //   {
+  //     'id': '3d-buildings',
+  //     'source': 'composite',
+  //     'source-layer': 'building',
+  //     'filter': ['==', 'extrude', 'true'],
+  //     'type': 'fill-extrusion',
+  //     'minzoom': 15,
+  //     'paint': {
+  //     'fill-extrusion-color': '#141c26',
+  //     'fill-extrusion-height': [
+  //       'interpolate',
+  //       ['linear'],
+  //       ['zoom'],
+  //       15, 0,
+  //       15.05, ['get', 'height']
+  //     ],
+  //     'fill-extrusion-base': [
+  //       'interpolate',
+  //       ['linear'],
+  //       ['zoom'],
+  //       15, 0,
+  //       15.05, ['get', 'min_height']
+  //     ],
+  //     'fill-extrusion-opacity': [
+  //       'interpolate',
+  //       ['linear'],
+  //       ['zoom'],
+  //       15, 0,
+  //       16, 0.95
+  //     ]
+  //   }
+  // },
+  // labelLayerId
+  // );
 
-  map.addLayer(
-    {
-      'id': '3d-buildings',
-      'source': 'composite',
-      'source-layer': 'building',
-      'filter': ['==', 'extrude', 'true'],
-      'type': 'fill-extrusion',
-      'minzoom': 15,
-      'paint': {
-      'fill-extrusion-color': '#141c26',
-      'fill-extrusion-height': [
-        'interpolate',
-        ['linear'],
-        ['zoom'],
-        15, 0,
-        15.05, ['get', 'height']
-      ],
-      'fill-extrusion-base': [
-        'interpolate',
-        ['linear'],
-        ['zoom'],
-        15, 0,
-        15.05, ['get', 'min_height']
-      ],
-      'fill-extrusion-opacity': [
-        'interpolate',
-        ['linear'],
-        ['zoom'],
-        15, 0,
-        16, 0.95
-      ]
-    }
-  },
-  labelLayerId
-  );
 
+     map.addSource('points', {
+        'type': 'geojson',
+        'data': {
+          'type': 'FeatureCollection',
+          'features': [
+            {
+              'type': 'Feature',
+              'properties': {
+                'description': '<strong>Place Name</strong><p>Description text goes here.</p>'
+              },
+              'geometry': {
+                'type': 'Point',
+                'coordinates': [5.1151301, 52.0916494] // example coordinates [lng, lat]
+              }
+            }
+            // You can add more features here
+          ]
+        }
+      });
+
+  // map.addLayer({
+  //   'id': 'points-layer',
+  //   'type': 'circle',
+  //   'source': 'points',
+  //   'paint': {
+  //     'circle-radius': 18,
+  //     'circle-color': [
+  //       'case',
+  //       ['boolean', ['feature-state', 'hover'], false],
+  //       '#FFCC00', // Hover color
+  //       '#B42222'  // Default color
+  //     ]
+  //   }
+  // });
+
+  // Add the symbol layer for the icon
+  // map.addLayer({
+  //   'id': 'points-icon-layer',
+  //   'type': 'symbol',
+  //   'source': 'points',
+  //   'layout': {
+  //     'icon-image': '', 
+  //     'icon-size': 0.8
+  //   }
+  // });
+
+        // Create a popup, but don't add it to the map yet
   var filters = [];
 
-  function filterSidewalks(index) {
+  function filterhexs(index) {
 
     if (filters[index].active == false) {
       filters[index].active = true;
@@ -136,7 +202,7 @@ map.on('load', function() {
         conditions.push(filters[i].condition);
     }
     console.log(conditions)
-    map.setFilter('sidewalks', conditions);
+    map.setFilter('hexs', conditions);
   }
 
   function getMaxValue(groups) {
@@ -175,44 +241,54 @@ map.on('load', function() {
     var rowContent = document.createElement("DIV");
     var rowLeft = document.createElement("DIV");
     var color = document.createElement("DIV");
-    var rowRight = document.createElement("DIV");
+    // var rowRight = document.createElement("DIV");
 
-    rowLeft.innerHTML = "<p>" + item.rating + "</p>"
+    rowLeft.innerHTML = "<p>" + item.rating + ' ' + UNITS + "</p>"
     rowLeft.classList.add("row-left");
     color.classList.add("color");
     color.setAttribute("style", "background:" + item.color + ";");
     rowLeft.appendChild(color)
     row.appendChild(rowLeft)
-    rowRight.classList.add("row-right");
-    rowRight.innerHTML = "<p>" + string + "</p>";
-    row.appendChild(rowRight);
+    // rowRight.classList.add("row-right");
+    // rowRight.innerHTML = "<p>" + string + "</p>";
+    // row.appendChild(rowRight);
     document.getElementById("legend-main").appendChild(row);
   }
 
-  GROUPS.reverse().forEach(addLegendItem);
-  GROUPS.reverse()
+  GROUPS.forEach(addLegendItem);
+  GROUPS
 
   var popup = new mapboxgl.Popup({
     closeButton: false,
     closeOnClick: false
   });
 
+  var popup_poi = new mapboxgl.Popup({
+    closeButton: false,
+    closeOnClick: false
+  });
+
   function addPopup(e) {
+    var speed = e.features[0].properties.speed;
+
+    // if (speed === null | speed < 0.5) {
+    // return; // Exit the function if speed is null
+    // }
 
     map.getCanvas().style.cursor = 'pointer';
 
-    var lineWidth = e.features[0].properties.width
+    var speed = e.features[0].properties.speed
     var lineColor = e.features[0].layer.paint['line-color']
     var coordinates = e.lngLat;
     var stopIndex;
 
     for (i=0; i < GROUPS.length; i++) {
       if (GROUPS[i + 1] == null) {
-        if (lineWidth >= GROUPS[i].value) {
+        if (speed >= GROUPS[i].value) {
           groupIndex = i;
         }
       } else {
-        if (lineWidth >= GROUPS[i].value && lineWidth < GROUPS[i + 1].value) {
+        if (speed >= GROUPS[i].value && speed < GROUPS[i + 1].value) {
           groupIndex = i;
         }
       }
@@ -221,9 +297,8 @@ map.on('load', function() {
     lineColor = GROUPS[groupIndex].color
 
     var description =
-      '<div class="name">Sidewalk Width:</div>' +
-      '<div class="width">' + (Math.round(lineWidth * 10) / 10) + ' ' + UNITS + '</div>' +
-      '<div class="message">Social distancing is ' + GROUPS[groupIndex].rating + ' on this path</div>'
+      '<div class="name">Speed:</div>' +
+      '<div class="width">' + Math.round(speed * 10) / 10 + ' ' + UNITS + '</div>'
 
     popup.setLngLat(coordinates)
     popup.setHTML(description)
@@ -248,17 +323,55 @@ map.on('load', function() {
     popup.addTo(map)
   }
 
-  map.on('touchstart', 'sidewalks', function(e) {
+  map.on('touchstart', 'hexs', function(e) {
     addPopup(e);
   })
 
-  map.on('mousemove', 'sidewalks', function(e) {
-    addPopup(e);
+  map.on('mousemove', 'hexs', function(e) {
+    if (!map.queryRenderedFeatures(e.point, { layers: ['points-layer'] }).length) {
+        addPopup(e);
+    }   
   });
 
-  map.on('mouseleave', 'sidewalks', function() {
+  map.on('mouseleave', 'hexs', function() {
     map.getCanvas().style.cursor = '';
     popup.remove();
   });
 
+  map.on('mouseenter', 'points-layer', function(e) {
+        popup.remove();
+  });
+
+
+
+
+   map.on('click', 'points-layer', function(e) {
+    // Prevent click-through to other layers
+
+    popup.remove();
+    e.preventDefault();
+
+    // Get the description and image for the clicked feature
+    const description = e.features[0].properties.description;
+    const image = e.features[0].properties.image;
+
+    // Set the content of the pop-up
+    popup_poi.setLngLat(e.lngLat)
+         .setHTML(`<p>this works</p>`
+          //  `<div>
+          //     <img src="${image}" alt="${description}" style="width:150px;height:auto;"/>
+          //     <p>${description}</p>
+          //   </div>`
+         )
+         .addTo(map);
+  });
+
+        // Remove hover state on mouseleave
+  map.on('mouseleave', 'points-layer', function() {
+
+        map.getCanvas().style.cursor = '';
+        popup_poi.remove();
+  });
 });
+
+

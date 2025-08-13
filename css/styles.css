@@ -3,6 +3,8 @@ body {
   padding: 0;
   font-family: Helvetica, Arial, sans-serif;
 }
+
+
 #map {
   position: absolute;
   top: 0;
@@ -19,8 +21,8 @@ body {
   left: 50%;
   transform: translate(-50%, -50%);
   padding: 30px;
-  color: #a6c1d2;
-  background-color: #0b0d13;
+  color: #d7d7d7;
+  background-color: #545862;
   z-index: 1000;
   border-radius: 20px;
 }
@@ -50,14 +52,14 @@ body {
   border-radius: 10px;
 }
 button {
-  color: #cfedff;
+  color: #40d1d6;
   font-weight: bold;
   background-color: #314561;
   outline: 0;
   border: 0;
 }
 button:hover {
-  background-color: #526886;
+  background-color: #cfedff;
   transition: 0.1s ease-in-out;
 }
 button h2 {
@@ -70,21 +72,33 @@ button h2 {
   z-index: 2000;
 }
 .circle-button {
-  margin-left: 10px;
   margin-top: 10px;
-  padding: 8px;
-  width: 40px;
-  height: 40px;
-  text-align: center;
-  font-family: "Times New Roman", Times, serif;
-  border-radius: 20px;
+  margin-left: 10px;
+
+  width: 60px; /* Adjust based on your preference */
+  height: 60px;
+  border-radius: 50%;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0; /* Ensure no padding */
+  border: none; /* Remove any default border */
+  background-color: #314561; /* Set the background to transparent or desired color */
+}
+
+.circle-button img {
+  width: 70%; /* Ensure it fits well */
+  height: 70%;
+  display: block; /* Remove extra space below images */
+  margin: 0; /* Ensure no margin affects centering */
 }
 a:link {
-  color: #3d77ca;
+  color: #cfecff;
   text-decoration: none;
 }
 a:visited {
-  color: #3d77ca;
+  color: #cfecff;
   text-decoration: none;
 }
 a:hover {
@@ -104,12 +118,12 @@ a:active {
   margin-top: 20px;
 }
 .legend .row-left {
-  width: 70%;
+  width: 90%;
 }
-.legend .row-left p {
+/* .legend .row-left p {
   margin: 0px;
   margin-left: 3px;
-}
+} */
 .legend .color {
   width: 100%;
   height: 6px;
@@ -171,3 +185,4 @@ a:active {
   margin-bottom: 0.2em;
   font-size: 1.5em;
 }
+
