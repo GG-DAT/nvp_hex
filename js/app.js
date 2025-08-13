@@ -32,7 +32,7 @@ mapboxgl.accessToken = MAPBOX_TOKEN;
 var map = new mapboxgl.Map({
   container: 'map',
   style: MAPBOX_STYLE,
-  center: [5.122288,52.090321],
+  center: [5.121642,52.0906826],
   zoom: 16,
   maxZoom: 21,
   minZoom: 16,
